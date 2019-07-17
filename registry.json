@@ -1,0 +1,43 @@
+{
+"endpoints": [
+    {
+        "endpoint": "http://texts.alpheios.net/api/dts",
+        "protocol": "dts",
+        "status": "experimental",
+        "label": "Alpheios Texts",
+        "contact": {
+          "email": "mailto:Bridget.Almas@tufts.edu",
+          "name": "Bridget Almas"
+        }
+    },
+    {
+        "endpoint": "http://dev.chartes.psl.eu/api/nautilus/dts",
+        "protocol": "dts",
+        "status": "demo",
+        "label": "École des Chartes Demo",
+        "contact": {
+          "email": "mailto:thibault.clerice@chartes.psl.eu",
+          "name": "Thibault Clérice"
+        }
+    },
+    {
+        "endpoint": "https://betamasaheft.eu/api/dts/",
+        "protocol": "dts",
+        "label": "Beta maṣāḥǝft",
+        "status": "experimental",
+        "contact": {
+          "email": "mailto:pietro.liuzzo@uni-hamburg.de",
+          "name": "Pietro Liuzzo"
+        }
+    },
+    {
+      "endpoint": "https://edh-www.adw.uni-heidelberg.de/api/dts/",
+      "label":"Epigraphische Datenbank Heidelberg",
+      "protocol": "dts",
+      "status": "experimental",
+      "contact": {
+        "email": "mailto:frank.grieshaber@zaw.uni-heidelberg.de",
+        "name": "Frank Grieshaber"
+      }
+    }
+]}
