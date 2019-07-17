@@ -13,5 +13,5 @@ pip install -r requirements.txt
 ### Run
 
 ```bash
-flaskapp run
+flask run
 ```
