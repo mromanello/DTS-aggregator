@@ -21,7 +21,7 @@
         }
     },
     {
-        "endpoint": "https://betamasaheft.eu/api/dts/",
+        "endpoint": "https://betamasaheft.eu/api/dts",
         "protocol": "dts",
         "label": "Beta maṣāḥǝft",
         "status": "experimental",
@@ -39,5 +39,16 @@
         "email": "mailto:frank.grieshaber@zaw.uni-heidelberg.de",
         "name": "Frank Grieshaber"
       }
-    }
+    },
+    {
+      "endpoint": "https://dts.perseids.org/",
+      "label":"Perseids",
+      "protocol": "dts",
+      "status": "experimental",
+      "contact": {
+        "email": "mailto:Zachary.Fletcher@tufts.edu",
+        "name": "Zachary Fletcher"
+      }
+  }
+
 ]}
