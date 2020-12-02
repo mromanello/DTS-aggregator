@@ -9,13 +9,33 @@ Developer : Thibault Clérice
 """
 
 import json
+import requests
 import os.path
+from urllib.parse import urljoin
+
+
+def count_total_items(baseuri: str) -> int:
+    """Counts total items available via a given DTS API.
+
+    :param str baseuri: base URI of the DTS API.
+    :return: Total number of items.
+    :rtype: int
+
+    """
+    h = {"User-Agent": "DTS Client"}
+    entry_request = requests.get(baseuri, headers=h)
+    ENDPOINTS = entry_request.json()
+
+    ROOT_COLLECTION = requests.get(
+        urljoin(baseuri, ENDPOINTS["collections"]), headers=h
+    ).json()
+    total_items = sum(int(coll["totalItems"]) for coll in ROOT_COLLECTION["member"])
+    print(f"{baseuri}: total items {total_items}")
+    return total_items
 
 
 registry_file = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "..",
-    "registry.json"
+    os.path.dirname(os.path.abspath(__file__)), "..", "registry.json"
 )
 
 with open(registry_file) as f:
@@ -26,31 +46,39 @@ collection_jsonld = {
         "@vocab": "https://www.w3.org/ns/hydra/core#",
         "dc": "http://purl.org/dc/terms/",
         "dts": "https://w3id.org/dts/api#",
-        "foaf": "http://xmlns.com/foaf/0.1/"
+        "foaf": "http://xmlns.com/foaf/0.1/",
     },
     "@id": "w3id.org/dts-registry",
     "@type": "Collection",
-    "totalItems": len(registry_raw),
+    "totalItems": len(registry_raw["endpoints"]),
     "title": "Distributed Text Services Registry",
     "dts:dublincore": {
         "dc:publisher": ["Distributed Text Services"],
     },
-    "member": list([
-        dict({
-            "@id": api["endpoint"],
-            "title": api["label"],
-            "totalItems": None,  # Should we update this from time to time ?
-            "dts:dublincore": {
-                "dc:creator": {
-                    "foaf:name": api["contact"]["name"],
-                    "foaf:mbox": api["contact"]["email"]
-                },
-                "dc:description": "This API is in a(n) {}".format(api["status"])
-            }
-        })
-        for api in registry_raw["endpoints"]
-        if api.get("protocol", "dts") == "dts"
-    ])
+    "member": list(
+        [
+            dict(
+                {
+                    "@id": api["endpoint"],
+                    "title": api["label"],
+                    "totalItems": count_total_items(
+                        api["endpoint"]
+                    ),  # Should we update this from time to time ?
+                    "dts:dublincore": {
+                        "dc:creator": {
+                            "foaf:name": api["contact"]["name"],
+                            "foaf:mbox": api["contact"]["email"],
+                        },
+                        "dc:description": "This API is in a(n) {}".format(
+                            api["status"]
+                        ),
+                    },
+                }
+            )
+            for api in registry_raw["endpoints"]
+            if api.get("protocol", "dts") == "dts"
+        ]
+    ),
 }
 
 known_uris = set([api["endpoint"] for api in registry_raw["endpoints"]])
@@ -66,21 +94,23 @@ cors = CORS(app)
 
 @app.route("/")
 def entry_point():
-    """ JSON LD Entrypoint
+    """JSON LD Entrypoint
 
     :return: Entry point response
     """
-    return jsonify({
-      "@context": "/dts/api/contexts/EntryPoint.jsonld",
-      "@id": "/dts/api/",
-      "@type": "EntryPoint",
-      "collections": url_for(".collections"),
-    })
+    return jsonify(
+        {
+            "@context": "/dts/api/contexts/EntryPoint.jsonld",
+            "@id": "/dts/api/",
+            "@type": "EntryPoint",
+            "collections": url_for(".collections"),
+        }
+    )
 
 
 @app.route("/collections")
 def collections():
-    """ Collections endpoint
+    """Collections endpoint
 
     :return: Only the root collection and redirect
     """
@@ -90,12 +120,15 @@ def collections():
     elif _id in known_uris:
         return redirect(_id)
     else:
-        return jsonify(
-            {
-                "@context": "http://www.w3.org/ns/hydra/context.jsonld",
-                "@type": "Status",
-                "statusCode": 404,
-                "title": "Unknown collection",
-                "description": "This collection is unknown.",
-            }
-        ), 404
+        return (
+            jsonify(
+                {
+                    "@context": "http://www.w3.org/ns/hydra/context.jsonld",
+                    "@type": "Status",
+                    "statusCode": 404,
+                    "title": "Unknown collection",
+                    "description": "This collection is unknown.",
+                }
+            ),
+            404,
+        )
