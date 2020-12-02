@@ -61,6 +61,7 @@ collection_jsonld = {
                 {
                     "@id": api["endpoint"],
                     "title": api["label"],
+                    "@type": "EntryPoint",
                     "totalItems": count_total_items(
                         api["endpoint"]
                     ),  # Should we update this from time to time ?
