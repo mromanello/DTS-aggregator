@@ -49,6 +49,15 @@
         "email": "mailto:Zachary.Fletcher@tufts.edu",
         "name": "Zachary Fletcher"
       }
-  }
-
+    },
+    {
+      "endpoint": "https://teipublisher.com/exist/apps/vangogh/api/dts",
+      "label":"Van Gogh Letters (TEIPublisher demo)",
+      "protocol": "dts",
+      "status": "demo",
+      "contact": {
+        "email": "mailto:mail@existsolutions.com",
+        "name": "eXistSolutions"
+      }
+    }
 ]}
