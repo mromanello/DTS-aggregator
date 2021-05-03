@@ -26,10 +26,16 @@ def count_total_items(baseuri: str) -> int:
     entry_request = requests.get(baseuri, headers=h)
     ENDPOINTS = entry_request.json()
 
-    ROOT_COLLECTION = requests.get(
-        urljoin(baseuri, ENDPOINTS["collections"]), headers=h
-    ).json()
-    total_items = sum(int(coll["totalItems"]) for coll in ROOT_COLLECTION["member"])
+    try:
+        ROOT_COLLECTION = requests.get(
+            urljoin(baseuri, ENDPOINTS["collections"]), headers=h
+        ).json()
+        total_items = sum(int(coll["totalItems"]) for coll in ROOT_COLLECTION["member"])
+    # there are different reasons why the request above may fail
+    # the service may, for example, provide a reply in a format different from
+    # JSON
+    except:
+        total_items = None
     print(f"{baseuri}: total items {total_items}")
     return total_items
 
