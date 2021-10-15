@@ -59,5 +59,15 @@
         "email": "mailto:mail@existsolutions.com",
         "name": "eXistSolutions"
       }
+    },
+    {
+        "endpoint": "http://tnah.chartes.psl.eu/2019/dts/",
+        "protocol": "dts",
+        "status": "demo",
+        "label": "DTS-Demo-Server with Songs",
+        "contact": {
+          "email": "mailto:thibault.clerice@chartes.psl.eu",
+          "name": "Thibault Clérice"
+        }
     }
 ]}
