@@ -24,7 +24,8 @@ def count_total_items(baseuri: str) -> int:
     """
     h = {"User-Agent": "DTS Client"}
     entry_request = requests.get(baseuri, headers=h)
-    ENDPOINTS = entry_request.json()
+    if entry_request.status_code == 200:
+        ENDPOINTS = entry_request.json()
 
     try:
         ROOT_COLLECTION = requests.get(
