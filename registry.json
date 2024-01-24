@@ -69,5 +69,15 @@
           "email": "mailto:thibault.clerice@chartes.psl.eu",
           "name": "Thibault Clérice"
         }
-    }
+    },
+    {
+      "endpoint": "https://www.briefedition.alfred-escher.ch/exist/apps/escher/api/dts/",
+      "protocol": "dts",
+      "status": "production",
+      "label": "Alfred Escher-Briefedition",
+      "contact": {
+        "email": "mailto:staatsarchivzh@ji.zh.ch",
+        "name": "Staatsarchiv | Kanton Zürich"
+      }
+  }
 ]}
