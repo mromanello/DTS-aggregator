@@ -11,7 +11,7 @@
         }
     },
     {
-        "endpoint": "http://dev.chartes.psl.eu/api/nautilus/dts",
+        "endpoint": "https://dev.chartes.psl.eu/dts",
         "protocol": "dts",
         "status": "demo",
         "label": "École des Chartes Demo",

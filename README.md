@@ -22,3 +22,17 @@ pip install -r requirements.txt
 ```bash
 flask run
 ```
+
+## Run the aggregator on a container (Docker/Podman)
+
+Navigate to the aggregator root folder, then run :
+
+```bash
+docker build -t dts-agg-image .
+```
+
+start container with :
+
+```bash
+docker run --rm --name dts-agg -itd -p 5000:5000 dts-agg-image
+```
