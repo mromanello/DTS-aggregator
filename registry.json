@@ -41,16 +41,6 @@
       }
     },
     {
-      "endpoint": "https://dts.perseids.org/",
-      "label":"Perseids",
-      "protocol": "dts",
-      "status": "experimental",
-      "contact": {
-        "email": "mailto:Zachary.Fletcher@tufts.edu",
-        "name": "Zachary Fletcher"
-      }
-    },
-    {
       "endpoint": "https://teipublisher.com/exist/apps/vangogh/api/dts",
       "label":"Van Gogh Letters (TEIPublisher demo)",
       "protocol": "dts",
